@@ -1,0 +1,14 @@
+global using LanguageExt;
+global using LanguageExt.Common;
+global using LanguageExt.Traits;
+global using System.Collections.Immutable;
+global using System.ComponentModel;
+global using System.Diagnostics.Contracts;
+global using System.Net.Http.Json;
+global using System.Net.Http.Headers;
+global using System.Reflection;
+global using System.Runtime.Serialization;
+global using System.Text.Json;
+global using System.Text.Json.Serialization;
+global using static LanguageExt.List;
+global using static LanguageExt.Prelude;
