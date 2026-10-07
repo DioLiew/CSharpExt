@@ -10,6 +10,8 @@
     <Authors>Dio Liew</Authors>
     <Company>Venture GES Manufacturing Services(M) Sdn Bhd</Company>
     <Description>An extension to C# to ease functional code style.</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <NoWarn>IDE1006</NoWarn>
@@ -18,6 +20,7 @@
     <NoWarn>IDE1006</NoWarn>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\"/>
     <PackageReference Include="LanguageExt.Core" Version="5.0.0-beta-77" />
   </ItemGroup>
 </Project>
