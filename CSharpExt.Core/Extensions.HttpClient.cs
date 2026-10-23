@@ -22,28 +22,28 @@ public static partial class Extensions {
          Some: code => errorCodes?.Any(x => x == code) ?? false
       );
 
-   extension<A>(HttpClient http)
-   {
+   extension<A>(HttpClient http) {
+
       /// <summary>
       /// Standard GET method where request content as json.
       /// </summary>
       /// <param name="uri"></param>
       /// <param name="replied"></param>
-      /// <param name="authnHeader"></param>
+      /// <param name="request"></param>
       /// <param name="recurrence"></param>
       /// <param name="ct"></param>
       /// <returns></returns>
-      public IO<A> GetAsJson(Uri uri, Func<HttpResponseMessage, K<IO, A>> replied, AuthenticationHeaderValue? authnHeader = null, Recurrence? recurrence = null, CancellationToken ct = default) => retryWhile(
+      public IO<A> GetAsJson(Uri uri, Func<HttpResponseMessage, K<IO, A>> replied, Action<HttpRequestMessage>? request = null, Recurrence? recurrence = null, CancellationToken ct = default) => retryWhile(
          recurrence is null ? Schedule.Once : Schedule.recurs(recurrence.Times) | Schedule.fibonacci(new Duration(recurrence.Delay)),
          bracketIO(
-            from request in use(
+            from requestMsg in use(
                () => lift(
                   () => new HttpRequestMessage(HttpMethod.Get, uri),
                   x => x.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue(jsonType)),
-                  x => x.Headers.Authorization = authnHeader
+                  x => request?.BackCompose(() => x).Invoke()
                ).Function()
             )
-            from response in use(IO.liftAsync(() => http.SendAsync(request, HttpCompletionOption.ResponseContentRead, ct)))
+            from response in use(IO.liftAsync(() => http.SendAsync(requestMsg, HttpCompletionOption.ResponseContentRead, ct)))
             from a in replied(response)
             select a
          ),
@@ -56,23 +56,23 @@ public static partial class Extensions {
       /// <param name="uri"></param>
       /// <param name="param"></param>
       /// <param name="replied"></param>
-      /// <param name="authnHeader"></param>
+      /// <param name="request"></param>
       /// <param name="recurrence"></param>
       /// <param name="ct"></param>
       /// <returns></returns>
-      public IO<A> PatchAsJson(Uri uri, object param, Func<HttpResponseMessage, K<IO, A>> replied, AuthenticationHeaderValue? authnHeader = null, Recurrence? recurrence = null, CancellationToken ct = default) => retryWhile(
+      public IO<A> PatchAsJson(Uri uri, object param, Func<HttpResponseMessage, K<IO, A>> replied, Action<HttpRequestMessage>? request = null, Recurrence? recurrence = null, CancellationToken ct = default) => retryWhile(
          recurrence is null ? Schedule.Once : Schedule.recurs(recurrence.Times) | Schedule.fibonacci(new Duration(recurrence.Delay)),
          bracketIO(
             from content in use(() => JsonContent.Create(param, mediaType: new MediaTypeHeaderValue(jsonType) { CharSet = charSet }, options: serializerOptions))
-            from request in use(
+            from requestMsg in use(
                () => lift(
                   () => new HttpRequestMessage(HttpMethod.Patch, uri),
                   x => x.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue(jsonType)),
-                  x => x.Headers.Authorization = authnHeader,
+                  x => request?.BackCompose(() => x).Invoke(),
                   x => x.Content = content
                ).Function()
             )
-            from response in use(IO.liftAsync(() => http.SendAsync(request, HttpCompletionOption.ResponseContentRead, ct)))
+            from response in use(IO.liftAsync(() => http.SendAsync(requestMsg, HttpCompletionOption.ResponseContentRead, ct)))
             from a in replied(response)
             select a
          ),
@@ -84,25 +84,24 @@ public static partial class Extensions {
       /// </summary>
       /// <param name="uri"></param>
       /// <param name="replied"></param>
-      /// <param name="authnHeader"></param>
+      /// <param name="request"></param>
       /// <param name="param"></param>
       /// <param name="recurrence"></param>
       /// <param name="ct"></param>
       /// <returns></returns>
-      public IO<A> PostAsJson(Uri uri, Func<HttpResponseMessage, K<IO, A>> replied, AuthenticationHeaderValue? authnHeader = null, object? param = null, Recurrence? recurrence = null, CancellationToken ct = default) => retryWhile(
+      public IO<A> PostAsJson(Uri uri, Func<HttpResponseMessage, K<IO, A>> replied, Action<HttpRequestMessage>? request = null, object? param = null, Recurrence? recurrence = null, CancellationToken ct = default) => retryWhile(
          recurrence is null ? Schedule.Once : Schedule.recurs(recurrence.Times) | Schedule.fibonacci(new Duration(recurrence.Delay)),
          bracketIO(
             from content in use(() => JsonContent.Create(param, mediaType: new MediaTypeHeaderValue(jsonType) { CharSet = charSet }, options: serializerOptions))
-            from request in use(
+            from requestMsg in use(
                () => lift(
                   () => new HttpRequestMessage(HttpMethod.Post, uri),
                   x => x.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue(jsonType)),
-                  x => x.Headers.Authorization = authnHeader,
+                  x => request?.BackCompose(() => x).Invoke(),
                   x => x.Content = content
                ).Function()
             )
-               // from response in use(IO.liftAsync(async () => await http.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, ct)))
-            from response in use(IO.liftAsync(() => http.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, ct)))
+            from response in use(IO.liftAsync(() => http.SendAsync(requestMsg, HttpCompletionOption.ResponseHeadersRead, ct)))
             from a in replied(response)
             select a
          ),
@@ -114,24 +113,24 @@ public static partial class Extensions {
       /// </summary>
       /// <param name="uri"></param>
       /// <param name="replied"></param>
-      /// <param name="authnHeader"></param>
+      /// <param name="request"></param>
       /// <param name="param"></param>
       /// <param name="recurrence"></param>
       /// <param name="ct"></param>
       /// <returns></returns>
-      public IO<A> PutAsJson(Uri uri, Func<HttpResponseMessage, K<IO, A>> replied, AuthenticationHeaderValue? authnHeader = null, object? param = null, Recurrence? recurrence = null, CancellationToken ct = default) => retryWhile(
+      public IO<A> PutAsJson(Uri uri, Func<HttpResponseMessage, K<IO, A>> replied, Action<HttpRequestMessage>? request = null, object? param = null, Recurrence? recurrence = null, CancellationToken ct = default) => retryWhile(
          recurrence is null ? Schedule.Once : Schedule.recurs(recurrence.Times) | Schedule.fibonacci(new Duration(recurrence.Delay)),
          bracketIO(
             from content in use(() => JsonContent.Create(param, mediaType: new MediaTypeHeaderValue(jsonType) { CharSet = charSet }, options: serializerOptions))
-            from request in use(
+            from requestMsg in use(
                () => lift(
                   () => new HttpRequestMessage(HttpMethod.Put, uri),
                   x => x.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue(jsonType)),
-                  x => x.Headers.Authorization = authnHeader,
+                  x => request?.BackCompose(() => x).Invoke(),
                   x => x.Content = content
                ).Function()
             )
-            from response in use(IO.liftAsync(() => http.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, ct)))
+            from response in use(IO.liftAsync(() => http.SendAsync(requestMsg, HttpCompletionOption.ResponseHeadersRead, ct)))
             from a in replied(response)
             select a
          ),
@@ -162,8 +161,7 @@ public static partial class Extensions {
       );
    }
 
-   extension<A>(HttpResponseMessage response)
-   {
+   extension<A>(HttpResponseMessage response) {
       /// <summary>
       /// Verify if IsSuccessStatusCode. Later Content.ReadFromJsonAsync.
       /// </summary>
@@ -181,8 +179,7 @@ public static partial class Extensions {
       );
    }
 
-   extension(HttpResponseMessage response)
-   {
+   extension(HttpResponseMessage response) {
       /// <summary>
       /// Verify if IsSuccessStatusCode. Later Content.ReadAsStringAsync.
       /// </summary>

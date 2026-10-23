@@ -1,0 +1,274 @@
+{
+   "version": "0.2.0",
+   "configurations": [
+      {
+         "name": "SPV.Blazor Runner",
+         "type": "coreclr",
+         "request": "launch",
+         //"preLaunchTask": "Build.SPV.Blazor",
+         //"program": "E:\\Box\\NET 10\\Web APP\\SPV.Blazor\\SPV.Blazor\\bin\\Debug\\net10.0\\SPV.Blazor.dll",
+         "program": "${workspaceFolder}/SPV.Blazor/bin/Debug/net10.0/SPV.Blazor.dll",
+         "cwd": "${workspaceFolder}/SPV.Blazor",
+         "stopAtEntry": false,
+         "logging": {
+            "moduleLoad": false
+         },
+         "env": {
+            "ASPNETCORE_ENVIRONMENT": "Development",
+            "DOTNET_WATCH_RESTART_ON_RUDE_EDIT": "true"
+         },
+         // "serverReadyAction": {
+         //    "action": "openExternally",
+         //    "pattern": "\\bNow listening on:\\s+http://\\S+:([0-9]+)",
+         //    "uriFormat": "http://localhost:%s"
+         // },
+         "presentation": {
+            "hidden": false,
+            "group": "Blazor",
+            "order": 0
+         }
+      },
+      {
+         "name": "SPV.Blazor Watcher",
+         "type": "coreclr",
+         "request": "launch",
+         //"preLaunchTask": "Build.SPV.Blazor",
+         "program": "dotnet",
+         "args": [
+            "watch",
+            "--project",
+            ".",
+            "--non-interactive"
+         ],
+         "cwd": "${workspaceFolder}/SPV.Blazor",
+         // "stopAtEntry": false,
+         "logging": {
+            "moduleLoad": false
+         },
+         "env": {
+            "ASPNETCORE_ENVIRONMENT": "Development",
+            "DOTNET_WATCH_RESTART_ON_RUDE_EDIT": "true"
+         },
+         // "serverReadyAction": {
+         //    "action": "openExternally",
+         //    "pattern": "\\bNow listening on:\\s+http://\\S+:([0-9]+)",
+         //    "uriFormat": "http://localhost:%s"
+         // },
+         "presentation": {
+            "hidden": false,
+            "group": "Blazor",
+            "order": 1
+         }
+      },
+      {
+         "name": "SPV.Blazor Debugger",
+         "type": "coreclr",
+         "request": "attach",
+         //"processId": "${command:pickProcess}", // Use this to look into what is the processName
+         "processName": "SPV.Blazor.exe",
+         //"processPath": "E:\\Box\\Visual Studio\\Net 10\\Web App\\SPV\\SPV.Blazor\\bin\\Debug\\net10.0\\SPV.Blazor.exe",
+         "presentation": {
+            "hidden": false,
+            "group": "Blazor",
+            "order": 2
+         }
+      },
+      {
+         "name": "SPV.Blazor App",
+         "type": "chrome",
+         "request": "launch",
+         //"preLaunchTask": "Delay.Launch",
+         "url": "http://localhost:5110",
+         "webRoot": "${workspaceFolder}/SPV.Blazor",
+         "timeout": 60000,
+         "presentation": {
+            "hidden": false,
+            "group": "Blazor",
+            "order": 3
+         }
+      },
+      {
+         "name": "SPV.Blazor Scalar",
+         "type": "chrome",
+         "request": "launch",
+         //"preLaunchTask": "Delay.Launch",
+         "url": "http://localhost:5110/scalar/v1",
+         "webRoot": "${workspaceFolder}/SPV.Blazor",
+         "timeout": 60000,
+         "presentation": {
+            "hidden": false,
+            "group": "Blazor",
+            "order": 4
+         }
+      },
+      {
+         "name": "SPV.WebAPI Runner",
+         "type": "coreclr",
+         "request": "launch",
+         "program": "${workspaceFolder}/../Web API/SPV.WebAPI/SPV.WebAPI/bin/Debug/net10.0/SPV.WebAPI.dll",
+         "cwd": "${workspaceFolder}/../Web API/SPV.WebAPI/SPV.WebAPI",
+         "stopAtEntry": false,
+         "logging": {
+            "moduleLoad": false
+         },
+         "env": {
+            "ASPNETCORE_ENVIRONMENT": "Development",
+            "DOTNET_WATCH_RESTART_ON_RUDE_EDIT": "true"
+         },
+         // "serverReadyAction": {
+         //    "action": "openExternally",
+         //    "pattern": "\\bNow listening on:\\s+http://\\S+:([0-9]+)",
+         //    "uriFormat": "http://localhost:%s"
+         // },
+         "presentation": {
+            "hidden": false,
+            "group": "SPV.WebAPI",
+            "order": 1
+         }
+      },
+      {
+         "name": "SPV.WebAPI Watcher",
+         "type": "coreclr",
+         "request": "launch",
+         //"preLaunchTask": "Build.SPV.Blazor",
+         "program": "dotnet",
+         "args": [
+            "watch",
+            "--project",
+            ".",
+            "--non-interactive"
+         ],
+         "cwd": "${workspaceFolder}/../../Web API/SPV.WebAPI/SPV.WebAPI",
+         // "stopAtEntry": false,
+         "logging": {
+            "moduleLoad": false
+         },
+         "env": {
+            "ASPNETCORE_ENVIRONMENT": "Development",
+            "DOTNET_WATCH_RESTART_ON_RUDE_EDIT": "true"
+         },
+         // "serverReadyAction": {
+         //    "action": "openExternally",
+         //    "pattern": "\\bNow listening on:\\s+http://\\S+:([0-9]+)",
+         //    "uriFormat": "http://localhost:%s"
+         // },
+         "presentation": {
+            "hidden": false,
+            "group": "SPV.WebAPI",
+            "order": 2
+         }
+      },
+      {
+         "name": "SPV.WebAPI Debugger",
+         "type": "coreclr",
+         "request": "attach",
+         //"processId": "${command:pickProcess}", // Use this to look into what is the processName
+         "processName": "SPV.WebAPI.exe",
+         //"processPath": "E:\\Box\\Visual Studio\\Net 10\\Web App\\SPV\\SPV.Blazor\\bin\\Debug\\net10.0\\SPV.Blazor.exe",
+         "presentation": {
+            "hidden": false,
+            "group": "SPV.WebAPI",
+            "order": 3
+         }
+      },
+      {
+         "name": "SPV.WebAPI Scalar",
+         "type": "chrome",
+         "request": "launch",
+         //"preLaunchTask": "Delay.Launch",
+         "url": "http://localhost:5143/scalar/v1",
+         //"webRoot": "${workspaceFolder}/SPV.WebAPI",
+         "webRoot": "${workspaceFolder}/../../Web API/SPV.WebAPI/SPV.WebAPI",
+         "timeout": 60000,
+         "presentation": {
+            "hidden": false,
+            "group": "SPV.WebAPI",
+            "order": 4
+         }
+      },
+      {
+         "name": "DGS3.WebAPI Runner",
+         "type": "coreclr",
+         "request": "launch",
+         "program": "${workspaceFolder}/../Web API/DGS3.WebAPI/DGS3.WebAPI/bin/Debug/net10.0/DGS3.WebAPI.dll",
+         "cwd": "${workspaceFolder}/../Web API/DGS3.WebAPI/DGS3.WebAPI",
+         //"stopAtEntry": false,
+         "logging": {
+            "moduleLoad": false
+         },
+         "env": {
+            "ASPNETCORE_ENVIRONMENT": "Development",
+            "DOTNET_WATCH_RESTART_ON_RUDE_EDIT": "true"
+         },
+         // "serverReadyAction": {
+         //    "action": "openExternally",
+         //    "pattern": "\\bNow listening on:\\s+http://\\S+:([0-9]+)",
+         //    "uriFormat": "http://localhost:%s"
+         // },
+         "presentation": {
+            "hidden": false,
+            "group": "DGS3.WebAPI",
+            "order": 1
+         }
+      },
+      {
+         "name": "DGS3.WebAPI Watcher",
+         "type": "coreclr",
+         "request": "launch",
+         //"preLaunchTask": "Build.SPV.Blazor",
+         "program": "dotnet",
+         "args": [
+            "watch",
+            "--project",
+            ".",
+            "--non-interactive"
+         ],
+         "cwd": "${workspaceFolder}/../../Web API/DGS3.WebAPI/DGS3.WebAPI",
+         // "stopAtEntry": false,
+         "logging": {
+            "moduleLoad": false
+         },
+         "env": {
+            "ASPNETCORE_ENVIRONMENT": "Development",
+            "DOTNET_WATCH_RESTART_ON_RUDE_EDIT": "true"
+         },
+         // "serverReadyAction": {
+         //    "action": "openExternally",
+         //    "pattern": "\\bNow listening on:\\s+http://\\S+:([0-9]+)",
+         //    "uriFormat": "http://localhost:%s"
+         // },
+         "presentation": {
+            "hidden": false,
+            "group": "DGS3.WebAPI",
+            "order": 2
+         }
+      },
+      {
+         "name": "DGS3.WebAPI Debugger",
+         "type": "coreclr",
+         "request": "attach",
+         //"processId": "${command:pickProcess}", // Use this to look into what is the processName
+         "processName": "DGS3.WebAPI.exe",
+         //"processPath": "E:\\Box\\Visual Studio\\Net 10\\Web App\\SPV\\SPV.Blazor\\bin\\Debug\\net10.0\\SPV.Blazor.exe",
+         "presentation": {
+            "hidden": false,
+            "group": "DGS3.WebAPI",
+            "order": 3
+         }
+      },
+      {
+         "name": "DGS3.WebAPI Scalar",
+         "type": "chrome",
+         "request": "launch",
+         //"preLaunchTask": "Delay.Launch",
+         "url": "http://localhost:5124/scalar/v1",
+         "webRoot": "${workspaceFolder}/../../Web API/DGS3.WebAPI/DGS3.WebAPI",
+         "timeout": 60000,
+         "presentation": {
+            "hidden": false,
+            "group": "DGS3.WebAPI",
+            "order": 4
+         }
+      }
+   ]
+}
