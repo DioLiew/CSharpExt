@@ -6,7 +6,8 @@
     <!-- nuget properties-->
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>CSharpExt.Core</PackageId>
-    <Version>1.1.0</Version>
+    <!-- <Version>1.1.0</Version> -->
+    <VersionPrefix>1.1.1</VersionPrefix>
     <VersionSuffix>dev-001</VersionSuffix>
     <Authors>Dio Liew</Authors>
     <Description>An extension to C# to ease functional code style.</Description>
