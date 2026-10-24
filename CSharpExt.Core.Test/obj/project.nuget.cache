@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "FX7cAN5q1JQ=",
+  "dgSpecHash": "kz2b4fmF5l0=",
   "success": true,
-  "projectFilePath": "E:\\Box\\NET 10\\CSharpExt\\CSharpExt.Core.Test\\CSharpExt.Core.Test.csproj",
+  "projectFilePath": "e:\\Box\\NET 10\\CSharpExt\\CSharpExt.Core.Test\\CSharpExt.Core.Test.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Dio Liew\\.nuget\\packages\\coverlet.collector\\6.0.4\\coverlet.collector.6.0.4.nupkg.sha512",
     "C:\\Users\\Dio Liew\\.nuget\\packages\\languageext.core\\5.0.0-beta-77\\languageext.core.5.0.0-beta-77.nupkg.sha512",

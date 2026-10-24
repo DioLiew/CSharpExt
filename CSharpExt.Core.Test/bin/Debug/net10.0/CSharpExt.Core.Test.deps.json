@@ -8,7 +8,7 @@
     ".NETCoreApp,Version=v10.0": {
       "CSharpExt.Core.Test/1.0.0": {
         "dependencies": {
-          "CSharpExt.Core": "1.0.1",
+          "CSharpExt.Core": "1.1.0",
           "Microsoft.NET.Test.Sdk": "17.14.1",
           "xunit": "2.9.3"
         },
@@ -339,14 +339,14 @@
           }
         }
       },
-      "CSharpExt.Core/1.0.1": {
+      "CSharpExt.Core/1.1.0": {
         "dependencies": {
           "LanguageExt.Core": "5.0.0-beta-77"
         },
         "runtime": {
           "CSharpExt.Core.dll": {
-            "assemblyVersion": "1.0.1.0",
-            "fileVersion": "1.0.1.0"
+            "assemblyVersion": "1.1.0.0",
+            "fileVersion": "1.1.0.0"
           }
         }
       }
@@ -442,7 +442,7 @@
       "path": "xunit.extensibility.execution/2.9.3",
       "hashPath": "xunit.extensibility.execution.2.9.3.nupkg.sha512"
     },
-    "CSharpExt.Core/1.0.1": {
+    "CSharpExt.Core/1.1.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

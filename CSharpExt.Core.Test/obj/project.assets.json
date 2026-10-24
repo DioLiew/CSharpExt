@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "version": 4,
   "targets": {
     "net10.0": {
       "coverlet.collector/6.0.4": {
@@ -407,7 +407,7 @@
           "build/net8.0/xunit.runner.visualstudio.props": {}
         }
       },
-      "CSharpExt.Core/1.0.1": {
+      "CSharpExt.Core/1.1.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
@@ -945,7 +945,7 @@
         "xunit.runner.visualstudio.nuspec"
       ]
     },
-    "CSharpExt.Core/1.0.1": {
+    "CSharpExt.Core/1.1.0": {
       "type": "project",
       "path": "../CSharpExt.Core/CSharpExt.Core.csproj",
       "msbuildProject": "../CSharpExt.Core/CSharpExt.Core.csproj"
@@ -953,7 +953,7 @@
   },
   "projectFileDependencyGroups": {
     "net10.0": [
-      "CSharpExt.Core >= 1.0.1",
+      "CSharpExt.Core >= 1.1.0",
       "Microsoft.NET.Test.Sdk >= 17.14.1",
       "coverlet.collector >= 6.0.4",
       "xunit >= 2.9.3",
@@ -969,11 +969,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Box\\NET 10\\CSharpExt\\CSharpExt.Core.Test\\CSharpExt.Core.Test.csproj",
+      "projectUniqueName": "e:\\Box\\NET 10\\CSharpExt\\CSharpExt.Core.Test\\CSharpExt.Core.Test.csproj",
       "projectName": "CSharpExt.Core.Test",
-      "projectPath": "E:\\Box\\NET 10\\CSharpExt\\CSharpExt.Core.Test\\CSharpExt.Core.Test.csproj",
+      "projectPath": "e:\\Box\\NET 10\\CSharpExt\\CSharpExt.Core.Test\\CSharpExt.Core.Test.csproj",
       "packagesPath": "C:\\Users\\Dio Liew\\.nuget\\packages\\",
-      "outputPath": "E:\\Box\\NET 10\\CSharpExt\\CSharpExt.Core.Test\\obj\\",
+      "outputPath": "e:\\Box\\NET 10\\CSharpExt\\CSharpExt.Core.Test\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\DevExpress 22.2\\Components\\Offline Packages",
@@ -996,10 +996,11 @@
       },
       "frameworks": {
         "net10.0": {
+          "framework": "net10.0",
           "targetAlias": "net10.0",
           "projectReferences": {
-            "E:\\Box\\NET 10\\CSharpExt\\CSharpExt.Core\\CSharpExt.Core.csproj": {
-              "projectPath": "E:\\Box\\NET 10\\CSharpExt\\CSharpExt.Core\\CSharpExt.Core.csproj"
+            "e:\\Box\\NET 10\\CSharpExt\\CSharpExt.Core\\CSharpExt.Core.csproj": {
+              "projectPath": "e:\\Box\\NET 10\\CSharpExt\\CSharpExt.Core\\CSharpExt.Core.csproj"
             }
           }
         }
@@ -1014,10 +1015,11 @@
         "auditLevel": "low",
         "auditMode": "all"
       },
-      "SdkAnalysisLevel": "10.0.100"
+      "SdkAnalysisLevel": "10.0.400"
     },
     "frameworks": {
       "net10.0": {
+        "framework": "net10.0",
         "targetAlias": "net10.0",
         "dependencies": {
           "Microsoft.NET.Test.Sdk": {
@@ -1053,7 +1055,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.100/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.402/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.CSharp": "(,4.7.32767]",
           "Microsoft.VisualBasic": "(,10.4.32767]",
