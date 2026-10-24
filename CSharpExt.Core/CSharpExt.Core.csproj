@@ -7,6 +7,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>CSharpExt.Core</PackageId>
     <Version>1.1.0</Version>
+    <VersionSuffix>dev-001</VersionSuffix>
     <Authors>Dio Liew</Authors>
     <Description>An extension to C# to ease functional code style.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
