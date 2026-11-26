@@ -12,20 +12,22 @@ public static partial class Extensions {
 
    static readonly JsonSerializerOptions serializerOptions = new() { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull };
 
+   // static bool matchError(Error e, IList<int>? errorCodes) =>
+   //    e.Exception.Bind(
+   //       ex => Optional(
+   //          ex as HttpRequestException
+   //       ).Map(x => (int?)x.StatusCode)
+   //    ).Match(
+   //       None: () => false,
+   //       Some: code => errorCodes?.Any(x => x == code) ?? false
+   //    );
    static bool matchError(Error e, IList<int>? errorCodes) =>
-      e.Exception.Bind(
-         ex => Optional(
-            ex as HttpRequestException
-         ).Map(x => (int?)x.StatusCode)
-      ).Match(
-         None: () => false,
-         Some: code => errorCodes?.Any(x => x == code) ?? false
-      );
+      e.HasException<HttpRequestException>() && (errorCodes?.Any(x => x == e.Code) ?? false);
 
    extension<A>(HttpClient http) {
-
       /// <summary>
-      /// Standard GET method where request content as json.
+      /// Standard GET method where request content as json.<br />
+      /// Precaution be taken with Recurrence must not being included for WASM, where inner retryWhile is not being supported.
       /// </summary>
       /// <param name="uri"></param>
       /// <param name="replied"></param>
@@ -33,8 +35,7 @@ public static partial class Extensions {
       /// <param name="recurrence"></param>
       /// <param name="ct"></param>
       /// <returns></returns>
-      public IO<A> GetAsJson(Uri uri, Func<HttpResponseMessage, K<IO, A>> replied, Action<HttpRequestMessage>? request = null, Recurrence? recurrence = null, CancellationToken ct = default) => retryWhile(
-         recurrence is null ? Schedule.Once : Schedule.recurs(recurrence.Times) | Schedule.fibonacci(new Duration(recurrence.Delay)),
+      public K<IO, A> GetAsJson(Uri uri, Func<HttpResponseMessage, K<IO, A>> replied, Action<HttpRequestMessage>? request = null, Recurrence? recurrence = null, CancellationToken ct = default) =>
          bracketIO(
             from requestMsg in use(
                () => lift(
@@ -46,12 +47,17 @@ public static partial class Extensions {
             from response in use(IO.liftAsync(() => http.SendAsync(requestMsg, HttpCompletionOption.ResponseContentRead, ct)))
             from a in replied(response)
             select a
-         ),
-         e => matchError(e, recurrence?.ErrorCodes)
-      );
+         ).Bind(
+            x => recurrence is null ? IO.pure(x)
+            : retryWhile(
+               Schedule.recurs(recurrence.Times) | Schedule.fibonacci(new Duration(recurrence.Delay)),
+               IO.pure(x), e => matchError(e, recurrence?.ErrorCodes)
+            )
+         );
 
       /// <summary>
-      /// Standard PATCH method where request content as json.
+      /// Standard PATCH method where request content as json.<br />
+      /// Precaution be taken with Recurrence must not being included for WASM, where inner retryWhile is not being supported.
       /// </summary>
       /// <param name="uri"></param>
       /// <param name="param"></param>
@@ -60,8 +66,7 @@ public static partial class Extensions {
       /// <param name="recurrence"></param>
       /// <param name="ct"></param>
       /// <returns></returns>
-      public IO<A> PatchAsJson(Uri uri, object param, Func<HttpResponseMessage, K<IO, A>> replied, Action<HttpRequestMessage>? request = null, Recurrence? recurrence = null, CancellationToken ct = default) => retryWhile(
-         recurrence is null ? Schedule.Once : Schedule.recurs(recurrence.Times) | Schedule.fibonacci(new Duration(recurrence.Delay)),
+      public K<IO, A> PatchAsJson(Uri uri, object param, Func<HttpResponseMessage, K<IO, A>> replied, Action<HttpRequestMessage>? request = null, Recurrence? recurrence = null, CancellationToken ct = default) =>
          bracketIO(
             from content in use(() => JsonContent.Create(param, mediaType: new MediaTypeHeaderValue(jsonType) { CharSet = charSet }, options: serializerOptions))
             from requestMsg in use(
@@ -75,12 +80,17 @@ public static partial class Extensions {
             from response in use(IO.liftAsync(() => http.SendAsync(requestMsg, HttpCompletionOption.ResponseContentRead, ct)))
             from a in replied(response)
             select a
-         ),
-         e => matchError(e, recurrence?.ErrorCodes)
-      );
+         ).Bind(
+            x => recurrence is null ? IO.pure(x)
+            : retryWhile(
+               Schedule.recurs(recurrence.Times) | Schedule.fibonacci(new Duration(recurrence.Delay)),
+               IO.pure(x), e => matchError(e, recurrence?.ErrorCodes)
+            )
+         );
 
       /// <summary>
-      /// Standard POST method where request content as json.
+      /// Standard POST method where request content as json.<br />
+      /// Precaution be taken with Recurrence must not being included for WASM, where inner retryWhile is not being supported.
       /// </summary>
       /// <param name="uri"></param>
       /// <param name="replied"></param>
@@ -89,8 +99,7 @@ public static partial class Extensions {
       /// <param name="recurrence"></param>
       /// <param name="ct"></param>
       /// <returns></returns>
-      public IO<A> PostAsJson(Uri uri, Func<HttpResponseMessage, K<IO, A>> replied, Action<HttpRequestMessage>? request = null, object? param = null, Recurrence? recurrence = null, CancellationToken ct = default) => retryWhile(
-         recurrence is null ? Schedule.Once : Schedule.recurs(recurrence.Times) | Schedule.fibonacci(new Duration(recurrence.Delay)),
+      public K<IO, A> PostAsJson(Uri uri, Func<HttpResponseMessage, K<IO, A>> replied, Action<HttpRequestMessage>? request = null, object? param = null, Recurrence? recurrence = null, CancellationToken ct = default) =>
          bracketIO(
             from content in use(() => JsonContent.Create(param, mediaType: new MediaTypeHeaderValue(jsonType) { CharSet = charSet }, options: serializerOptions))
             from requestMsg in use(
@@ -104,12 +113,17 @@ public static partial class Extensions {
             from response in use(IO.liftAsync(() => http.SendAsync(requestMsg, HttpCompletionOption.ResponseHeadersRead, ct)))
             from a in replied(response)
             select a
-         ),
-         e => matchError(e, recurrence?.ErrorCodes)
-      );
+         ).Bind(
+            x => recurrence is null ? IO.pure(x)
+            : retryWhile(
+               Schedule.recurs(recurrence.Times) | Schedule.fibonacci(new Duration(recurrence.Delay)),
+               IO.pure(x), e => matchError(e, recurrence?.ErrorCodes)
+            )
+         );
 
       /// <summary>
-      /// Standard PUT method where request content as json.
+      /// Standard PUT method where request content as json.<br />
+      /// Precaution be taken with Recurrence must not being included for WASM, where inner retryWhile is not being supported.
       /// </summary>
       /// <param name="uri"></param>
       /// <param name="replied"></param>
@@ -118,8 +132,7 @@ public static partial class Extensions {
       /// <param name="recurrence"></param>
       /// <param name="ct"></param>
       /// <returns></returns>
-      public IO<A> PutAsJson(Uri uri, Func<HttpResponseMessage, K<IO, A>> replied, Action<HttpRequestMessage>? request = null, object? param = null, Recurrence? recurrence = null, CancellationToken ct = default) => retryWhile(
-         recurrence is null ? Schedule.Once : Schedule.recurs(recurrence.Times) | Schedule.fibonacci(new Duration(recurrence.Delay)),
+      public K<IO, A> PutAsJson(Uri uri, Func<HttpResponseMessage, K<IO, A>> replied, Action<HttpRequestMessage>? request = null, object? param = null, Recurrence? recurrence = null, CancellationToken ct = default) =>
          bracketIO(
             from content in use(() => JsonContent.Create(param, mediaType: new MediaTypeHeaderValue(jsonType) { CharSet = charSet }, options: serializerOptions))
             from requestMsg in use(
@@ -133,20 +146,24 @@ public static partial class Extensions {
             from response in use(IO.liftAsync(() => http.SendAsync(requestMsg, HttpCompletionOption.ResponseHeadersRead, ct)))
             from a in replied(response)
             select a
-         ),
-         e => matchError(e, recurrence?.ErrorCodes)
-      );
+         ).Bind(
+            x => recurrence is null ? IO.pure(x)
+            : retryWhile(
+               Schedule.recurs(recurrence.Times) | Schedule.fibonacci(new Duration(recurrence.Delay)),
+               IO.pure(x), e => matchError(e, recurrence?.ErrorCodes)
+            )
+         );
 
       /// <summary>
-      /// Stand method to send HttpRequestMessage.
+      /// Stand method to send HttpRequestMessage.<br />
+      /// Precaution be taken with Recurrence must not being included for WASM, where inner retryWhile is not being supported.
       /// </summary>
       /// <param name="requestMessage"></param>
       /// <param name="replied"></param>
       /// <param name="recurrence"></param>
       /// <param name="ct"></param>
       /// <returns></returns>
-      public IO<A> Send(Lift<HttpRequestMessage> requestMessage, Func<HttpResponseMessage, K<IO, A>> replied, Recurrence? recurrence = null, CancellationToken ct = default) => retryWhile(
-         recurrence is null ? Schedule.Once : Schedule.recurs(recurrence.Times) | Schedule.fibonacci(new Duration(recurrence.Delay)),
+      public K<IO, A> Send(Lift<HttpRequestMessage> requestMessage, Func<HttpResponseMessage, K<IO, A>> replied, Recurrence? recurrence = null, CancellationToken ct = default) =>
          bracketIO(
             from request in use(
                () => requestMessage.Function()
@@ -156,9 +173,13 @@ public static partial class Extensions {
             )
             from a in replied(response)
             select a
-         ),
-         e => matchError(e, recurrence?.ErrorCodes)
-      );
+         ).Bind(
+            x => recurrence is null ? IO.pure(x)
+            : retryWhile(
+               Schedule.recurs(recurrence.Times) | Schedule.fibonacci(new Duration(recurrence.Delay)),
+               IO.pure(x), e => matchError(e, recurrence?.ErrorCodes)
+            )
+         );
    }
 
    extension<A>(HttpResponseMessage response) {

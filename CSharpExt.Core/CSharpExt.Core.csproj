@@ -8,7 +8,7 @@
     <PackageId>CSharpExt.Core</PackageId>
     <!-- <Version>1.1.0</Version> -->
     <VersionPrefix>1.1.1</VersionPrefix>
-    <VersionSuffix>dev-001</VersionSuffix>
+    <VersionSuffix>dev-002</VersionSuffix>
     <Authors>Dio Liew</Authors>
     <Description>An extension to C# to ease functional code style.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>

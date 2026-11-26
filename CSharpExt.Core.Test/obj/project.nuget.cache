@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "kz2b4fmF5l0=",
+  "dgSpecHash": "3uZHtTI41PA=",
   "success": true,
   "projectFilePath": "e:\\Box\\NET 10\\CSharpExt\\CSharpExt.Core.Test\\CSharpExt.Core.Test.csproj",
   "expectedPackageFiles": [
@@ -18,7 +18,11 @@
     "C:\\Users\\Dio Liew\\.nuget\\packages\\xunit.core\\2.9.3\\xunit.core.2.9.3.nupkg.sha512",
     "C:\\Users\\Dio Liew\\.nuget\\packages\\xunit.extensibility.core\\2.9.3\\xunit.extensibility.core.2.9.3.nupkg.sha512",
     "C:\\Users\\Dio Liew\\.nuget\\packages\\xunit.extensibility.execution\\2.9.3\\xunit.extensibility.execution.2.9.3.nupkg.sha512",
-    "C:\\Users\\Dio Liew\\.nuget\\packages\\xunit.runner.visualstudio\\3.1.4\\xunit.runner.visualstudio.3.1.4.nupkg.sha512"
+    "C:\\Users\\Dio Liew\\.nuget\\packages\\xunit.runner.visualstudio\\3.1.4\\xunit.runner.visualstudio.3.1.4.nupkg.sha512",
+    "C:\\Users\\Dio Liew\\.nuget\\packages\\csharpext.core\\1.1.1-dev-001\\csharpext.core.1.1.1-dev-001.nupkg.sha512",
+    "C:\\Users\\Dio Liew\\.nuget\\packages\\microsoft.netcore.app.ref\\10.0.15\\microsoft.netcore.app.ref.10.0.15.nupkg.sha512",
+    "C:\\Users\\Dio Liew\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\10.0.15\\microsoft.windowsdesktop.app.ref.10.0.15.nupkg.sha512",
+    "C:\\Users\\Dio Liew\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\10.0.15\\microsoft.aspnetcore.app.ref.10.0.15.nupkg.sha512"
   ],
   "logs": []
 }

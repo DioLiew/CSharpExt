@@ -26,6 +26,7 @@ csharp_indent_labels = no_change
 csharp_indent_block_contents = true
 csharp_indent_braces = false
 csharp_indent_case_contents_when_block = true
+csharp_indent_preprocessor_directives = true
 
 csharp_space_after_cast = false
 csharp_space_after_keywords_in_control_flow_statements = true
